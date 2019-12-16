@@ -4,7 +4,12 @@ class ArtistsController < ApplicationController
   end
 
   def show
-    @artist = Artist.find(params[:id])
+    if @artist = Artist.find_by_id(params[:id])
+    else
+      flash[:alert] = "Artist not found."
+      @artists = Artist.all
+      render template: 'artists/index'
+    end
   end
 
   def new
